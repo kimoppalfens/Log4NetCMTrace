@@ -64,4 +64,21 @@ namespace Log4Net_CMTrace
             writer.Write(CMAdminUILogFolder + "\\..\\..\\AdminUILog");
         }
     }
+    public class UTCOffsetPatternConverter : log4net.Util.PatternConverter
+    {
+        override protected void Convert(System.IO.TextWriter writer, object state)
+        {
+            TimeSpan delta = (System.TimeSpan.Zero);
+            try
+            {
+                System.TimeZone TimeZoneInfo = System.TimeZone.CurrentTimeZone;
+                delta = TimeZoneInfo.GetUtcOffset(DateTime.Now);
+            }
+            catch
+            {
+                
+            }
+            writer.Write(delta.TotalMinutes.ToString());
+        }
+    }
 }
