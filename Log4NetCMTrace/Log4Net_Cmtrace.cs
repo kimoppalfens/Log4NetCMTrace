@@ -64,6 +64,23 @@ namespace Log4Net_CMTrace
             writer.Write(CMAdminUILogFolder + "\\..\\..\\AdminUILog");
         }
     }
+    public class ProgramNamePatternConverter : log4net.Util.PatternConverter
+    {
+        override protected void Convert(System.IO.TextWriter writer, object state)
+        {
+            string ProgramName = (string.Empty);
+            try
+            {
+                ProgramName = (System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            }
+            catch
+            {
+                ProgramName = "programname";
+            }
+            writer.Write(ProgramName);
+        }
+    }
+    
     public class UTCOffsetPatternConverter : log4net.Util.PatternConverter
     {
         override protected void Convert(System.IO.TextWriter writer, object state)
@@ -79,6 +96,16 @@ namespace Log4Net_CMTrace
                 
             }
             writer.Write(delta.TotalMinutes.ToString());
+        }
+    }
+    public class MyLock : log4net.Appender.FileAppender.MinimalLock
+    {
+        public override Stream AcquireLock()
+        {
+            if (CurrentAppender.Threshold == log4net.Core.Level.Off)
+                return null;
+
+            return base.AcquireLock();
         }
     }
 }
