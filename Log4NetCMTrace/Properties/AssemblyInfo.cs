@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Log4NetCMTrace")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This assembly is an extension to Log4Net to allow the logging in the Configuration Manager CMTrace format.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("OSCC, Kim Oppalfes")]
 [assembly: AssemblyProduct("Log4NetCMTrace")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
