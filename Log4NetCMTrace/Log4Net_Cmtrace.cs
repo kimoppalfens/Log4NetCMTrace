@@ -33,17 +33,24 @@ namespace Log4Net_CMTrace
         protected override void Convert(System.IO.TextWriter writer, object state)
         {
             string CMClientLogFolder = string.Empty;
-            ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\ccm\\Policy\\Machine\\ActualConfig");
-            ObjectQuery query = new ObjectQuery("SELECT LogDirectory FROM CCM_Logging_GlobalConfiguration");
-            ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher(scope, query);
-            ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
-            using (ManagementObjectCollection.ManagementObjectEnumerator enumerator = managementObjectCollection.GetEnumerator())
+            try
             {
-                while (enumerator.MoveNext())
+                ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\ccm\\Policy\\Machine\\ActualConfig");
+                ObjectQuery query = new ObjectQuery("SELECT LogDirectory FROM CCM_Logging_GlobalConfiguration");
+                ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher(scope, query);
+                ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
+                using (ManagementObjectCollection.ManagementObjectEnumerator enumerator = managementObjectCollection.GetEnumerator())
                 {
-                    ManagementObject managementObject = (ManagementObject)enumerator.Current;
-                    CMClientLogFolder = managementObject["LogDirectory"].ToString();
+                    while (enumerator.MoveNext())
+                    {
+                        ManagementObject managementObject = (ManagementObject)enumerator.Current;
+                        CMClientLogFolder = managementObject["LogDirectory"].ToString();
+                    }
                 }
+            }
+            catch
+            {
+                CMClientLogFolder = Environment.GetEnvironmentVariable("TEMP");
             }
             writer.Write(CMClientLogFolder);
         }
@@ -59,7 +66,7 @@ namespace Log4Net_CMTrace
             }
             catch
             {
-                CMAdminUILogFolder = CMAdminUILogFolder = Environment.GetEnvironmentVariable("TEMP");
+                CMAdminUILogFolder = Environment.GetEnvironmentVariable("TEMP");
             }
             writer.Write(CMAdminUILogFolder + "\\..\\..\\AdminUILog");
         }
@@ -71,7 +78,7 @@ namespace Log4Net_CMTrace
             string ProgramName = (string.Empty);
             try
             {
-                ProgramName = (System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+                ProgramName = (System.Reflection.Assembly.GetEntryAssembly().GetName().Name);
             }
             catch
             {

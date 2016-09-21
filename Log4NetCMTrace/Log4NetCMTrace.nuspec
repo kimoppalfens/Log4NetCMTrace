@@ -15,4 +15,8 @@
     <copyright>Copyright 2016</copyright>
     <tags>Tag1 Tag2</tags>
   </metadata>
+<files>
+    <file src="readme.txt" target="" />
+   <file src="install.ps1" target="Tools"/>
+  </files>
 </package>
