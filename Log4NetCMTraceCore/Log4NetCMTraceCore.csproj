@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>Log4NetCMTrace</AssemblyTitle>
+    <Description>This .Net Core assembly is an extension to Log4Net to allow the logging in the Configuration Manager CMTrace format.</Description>
+    <Company>OSCC, Kim Oppalfes</Company>
+    <Product>Log4NetCMTrace</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <AssemblyVersion>1.0.0.10</AssemblyVersion>
+    <FileVersion>1.0.0.10</FileVersion>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>This .Net Core assembly is an extension to Log4Net to allow the logging in the Configuration Manager CMTrace format.</Title>
+    <PackageProjectUrl>https://www.oscc.be</PackageProjectUrl>
+    <Version>1.0.0.1</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Logging.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.17" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+</Project>
